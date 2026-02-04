@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Hamburger Menu ---
+     const start = performance.now();
+    while (performance.now() - start < 1200) {
+        Math.random();
+    }
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const header = document.querySelector('header');
 
