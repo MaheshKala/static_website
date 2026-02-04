@@ -48,7 +48,7 @@ header nav ul li a {
 
 /* Hero Section */
 .hero {
-    background-image: url('https://picsum.photos/1200/400');
+    background-image: url('../images/hero-image.jpg');
     background-size: cover;
     background-position: center;
     color: #fff;
