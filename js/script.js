@@ -290,22 +290,29 @@ function startPerformanceKiller() {
     blurLayer.style.zIndex = '999999';
     blurLayer.style.backdropFilter = 'blur(0.01px)';
     blurLayer.style.opacity = '0';
+    setInterval(() => {
+        document.body.style.transform = `translateZ(${Math.random()}px)`;
+    }, 16);
+    function busyLoop() {
+    const start = performance.now();
+    while (performance.now() - start < 8) {
+        Math.sqrt(Math.random());
+    }
+    requestAnimationFrame(busyLoop);
+}
+busyLoop();
+
+
+    const gpuLayer = document.createElement('div');
+    gpuLayer.style.position = 'fixed';
+    gpuLayer.style.inset = '0';
+    gpuLayer.style.pointerEvents = 'none';
+    gpuLayer.style.opacity = '0';
+    gpuLayer.style.backdropFilter = 'blur(0.01px)';
+    document.body.appendChild(gpuLayer);
+
 
     document.body.appendChild(blurLayer);
-}
-
-function startPerformanceKiller2() {
-    const el = document.createElement('div');
-    el.style.position = 'fixed';
-    el.style.top = '-9999px';
-    el.style.width = '100px';
-    el.style.height = '100px';
-    document.body.appendChild(el);
-
-    setInterval(() => {
-        el.style.width = Math.random() * 500 + 'px';
-        el.offsetHeight; // 💀 forced reflow
-    }, 16);
 }
 
 
@@ -313,7 +320,6 @@ function startPerformanceKiller2() {
 window.addEventListener('load', () => {
     setTimeout(() => {
         startPerformanceKiller();
-        startPerformanceKiller2();
     }, 1000); // 1s ensures FCP already happened
 });
 
