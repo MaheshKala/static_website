@@ -1,9 +1,27 @@
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /* Basic styles */
 body {
     font-family: sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    animation: fadeIn 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 .container {
@@ -73,6 +91,18 @@ header nav ul li a {
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
 }
 
 /* Featured Products */
@@ -96,6 +126,33 @@ header nav ul li a {
     border-radius: 5px;
     padding: 1rem;
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.wishlist-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.2);
+}
+
+.wishlist-btn.added {
+    color: #e62e2e;
 }
 
 .product-card img {
@@ -179,6 +236,16 @@ button.btn {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.remove-btn:hover {
+    background-color: #ff4d4d;
+    transform: translateY(-2px);
+}
+
+.remove-btn:active {
+    transform: translateY(0);
 }
 
 .cart-total {

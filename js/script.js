@@ -83,41 +83,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Wishlist Functionality ---
 
-    const addToWishlistButtons = document.querySelectorAll('.add-to-wishlist');
-
     // Get wishlist from local storage or initialize an empty array
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-    // Function to update wishlist buttons based on what's in localStorage
+    const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+
+    // Function to update heart button states based on what's in localStorage
     function updateWishlistButtons() {
-        addToWishlistButtons.forEach(button => {
+        wishlistButtons.forEach(button => {
             const productCard = button.closest('.product-card');
             if (!productCard) return;
+
             const productName = productCard.dataset.name;
             const isInWishlist = wishlist.some(item => item.name === productName);
+            
             if (isInWishlist) {
-                button.textContent = 'Added to Wishlist';
-                button.disabled = true;
+                button.classList.add('added');
+            } else {
+                button.classList.remove('added');
             }
         });
     }
 
-    // Function to add item to wishlist
-    function addToWishlist(product) {
-        const existingProduct = wishlist.find(item => item.name === product.name);
-        if (existingProduct) {
-            alert(`${product.name} is already in your wishlist.`);
+    // Toggles an item in the wishlist
+    function toggleWishlistItem(product, button) {
+        const productIndex = wishlist.findIndex(item => item.name === product.name);
+
+        if (productIndex > -1) {
+            // Item is in wishlist, so remove it
+            wishlist.splice(productIndex, 1);
+            button.classList.remove('added');
         } else {
+            // Item is not in wishlist, so add it
             wishlist.push(product);
-            localStorage.setItem('wishlist', JSON.stringify(wishlist));
-            alert(`${product.name} has been added to your wishlist.`);
-            return true; // Indicate success
+            button.classList.add('added');
         }
-        return false; // Indicate failure or duplicate
+
+        // Save the updated wishlist to local storage
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+        // If on the wishlist page, re-render the list
+        if (window.location.pathname.endsWith('wishlist.html')) {
+            renderWishlist();
+        }
     }
 
-    // Add to wishlist event listeners
-    addToWishlistButtons.forEach(button => {
+    // Add event listeners to new heart buttons
+    wishlistButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             const productCard = e.target.closest('.product-card');
@@ -127,16 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     price: productCard.dataset.price,
                     image: productCard.dataset.image,
                 };
-                
-                if (addToWishlist(product)) {
-                    e.target.textContent = 'Added to Wishlist';
-                    e.target.disabled = true;
-                }
+                toggleWishlistItem(product, e.target);
             }
         });
     });
 
-    // Check button states on page load
+    // Set initial state of heart buttons on page load
     updateWishlistButtons();
 
     // --- End Wishlist Functionality ---
