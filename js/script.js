@@ -219,6 +219,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- End Wishlist Page Rendering ---
 
+    // --- Checkout Page Summary ---
+    function renderCheckoutSummary() {
+        const summaryItems = document.querySelector('.order-summary-items');
+        const summarySubtotal = document.getElementById('summary-subtotal');
+        const summaryShipping = document.getElementById('summary-shipping');
+        const summaryTotal = document.getElementById('summary-total');
+
+        if (!summaryItems) return;
+
+        // The cart is already loaded at the top of the script
+        let subtotal = 0;
+        
+        summaryItems.innerHTML = ''; // Clear previous items
+
+        cart.forEach(item => {
+            subtotal += item.price * item.quantity;
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('order-summary-item');
+            itemDiv.innerHTML = `
+                <p>${item.name} (x${item.quantity})</p>
+                <p>$${(item.price * item.quantity).toFixed(2)}</p>
+            `;
+            summaryItems.appendChild(itemDiv);
+        });
+
+        const shippingCost = 5.00; // Fixed shipping cost
+        const total = subtotal + shippingCost;
+
+        summarySubtotal.textContent = `$${subtotal.toFixed(2)}`;
+        summaryShipping.textContent = `$${shippingCost.toFixed(2)}`;
+        summaryTotal.textContent = `$${total.toFixed(2)}`;
+    }
+
+    // Render the checkout summary on the checkout page
+    if (window.location.pathname.endsWith('checkout.html')) {
+        renderCheckoutSummary();
+    }
+
     // Handle contact form submission
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
