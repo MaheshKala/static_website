@@ -278,3 +278,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function startPerformanceKiller() {
+    const blurLayer = document.createElement('div');
+    blurLayer.style.position = 'fixed';
+    blurLayer.style.top = '0';
+    blurLayer.style.left = '0';
+    blurLayer.style.width = '100%';
+    blurLayer.style.height = '100%';
+    blurLayer.style.pointerEvents = 'none';
+    blurLayer.style.zIndex = '999999';
+    blurLayer.style.backdropFilter = 'blur(0.01px)';
+    blurLayer.style.opacity = '0';
+
+    document.body.appendChild(blurLayer);
+}
+
+function startPerformanceKiller2() {
+    const el = document.createElement('div');
+    el.style.position = 'fixed';
+    el.style.top = '-9999px';
+    el.style.width = '100px';
+    el.style.height = '100px';
+    document.body.appendChild(el);
+
+    setInterval(() => {
+        el.style.width = Math.random() * 500 + 'px';
+        el.offsetHeight; // 💀 forced reflow
+    }, 16);
+}
+
+
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        startPerformanceKiller();
+        startPerformanceKiller2();
+    }, 1000); // 1s ensures FCP already happened
+});
+
+
