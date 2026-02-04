@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -10,7 +12,7 @@
 
 /* Basic styles */
 body {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
@@ -18,6 +20,23 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6, .logo {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Responsive Typography */
+h1, .product-info h1 {
+    font-size: clamp(2.0rem, 5vw, 3.0rem);
+}
+
+h2, .hero h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2.0rem);
 }
 
 main {
@@ -75,7 +94,6 @@ header nav ul li a {
 }
 
 .hero h2 {
-    font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
@@ -335,7 +353,6 @@ button.btn {
 }
 
 .product-info h1 {
-    font-size: 2.5rem;
     margin-top: 0;
 }
 
@@ -366,4 +383,86 @@ button.btn {
 .order-confirmation {
     text-align: center;
     padding: 4rem 0;
+}
+
+/* Responsive Styles */
+
+.hamburger-menu {
+    display: none; /* Hidden by default */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1000;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    header nav {
+        display: none; /* Hide nav by default on mobile */
+        position: absolute;
+        top: 70px; /* Position below header */
+        left: 0;
+        width: 100%;
+        background: #333;
+        padding: 1rem 0;
+        z-index: 999;
+    }
+    
+    header.nav-open nav {
+        display: block;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    .hamburger-menu {
+        display: block; /* Show hamburger menu on mobile */
+    }
+    
+    /* Hamburger to X animation */
+    header.nav-open .hamburger-menu span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    header.nav-open .hamburger-menu span:nth-child(2) {
+        opacity: 0;
+    }
+
+    header.nav-open .hamburger-menu span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .login-register-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .login-form,
+    .register-form {
+        width: 90%;
+        margin-bottom: 2rem;
+    }
+
+    .product-detail {
+        grid-template-columns: 1fr;
+    }
 }

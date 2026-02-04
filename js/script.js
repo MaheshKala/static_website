@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Hamburger Menu ---
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const header = document.querySelector('header');
+
+    if (hamburgerMenu && header) {
+        hamburgerMenu.addEventListener('click', () => {
+            header.classList.toggle('nav-open');
+        });
+    }
+
     const addToCartButtons = document.querySelectorAll('.btn[href="#"]');
     const cartTableBody = document.querySelector('.cart-table tbody');
     const cartTotalElement = document.querySelector('.cart-total p strong');
