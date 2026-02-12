@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Hamburger Menu ---
-     const start = performance.now();
-    while (performance.now() - start < 1200) {
-        Math.random();
-    }
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const header = document.querySelector('header');
 
@@ -282,49 +277,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-function startPerformanceKiller() {
-    const blurLayer = document.createElement('div');
-    blurLayer.style.position = 'fixed';
-    blurLayer.style.top = '0';
-    blurLayer.style.left = '0';
-    blurLayer.style.width = '100%';
-    blurLayer.style.height = '100%';
-    blurLayer.style.pointerEvents = 'none';
-    blurLayer.style.zIndex = '999999';
-    blurLayer.style.backdropFilter = 'blur(0.01px)';
-    blurLayer.style.opacity = '0';
-    setInterval(() => {
-        document.body.style.transform = `translateZ(${Math.random()}px)`;
-    }, 16);
-    function busyLoop() {
-    const start = performance.now();
-    while (performance.now() - start < 8) {
-        Math.sqrt(Math.random());
-    }
-    requestAnimationFrame(busyLoop);
-}
-busyLoop();
-
-
-    const gpuLayer = document.createElement('div');
-    gpuLayer.style.position = 'fixed';
-    gpuLayer.style.inset = '0';
-    gpuLayer.style.pointerEvents = 'none';
-    gpuLayer.style.opacity = '0';
-    gpuLayer.style.backdropFilter = 'blur(0.01px)';
-    document.body.appendChild(gpuLayer);
-
-
-    document.body.appendChild(blurLayer);
-}
-
-
-
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        startPerformanceKiller();
-    }, 1000); // 1s ensures FCP already happened
-});
-
 
