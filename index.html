@@ -4,7 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce Website</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Critical CSS */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap');
+        
+        body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        h1, h2, h3, h4, h5, h6, .logo { font-family: 'Montserrat', sans-serif; }
+        h1, .product-info h1 { font-size: clamp(2.0rem, 5vw, 3.0rem); }
+        h2, .hero h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.5rem, 3vw, 2.0rem); }
+        main { flex: 1; }
+        
+        /* Container - Mobile First */
+        .container { width: 90%; margin: 0 auto; }
+        @media (min-width: 769px) { .container { width: 80%; } }
+
+        /* Header - Mobile First */
+        header { background: #333; color: #fff; padding: 1rem 0; }
+        header .container { display: flex; justify-content: space-between; align-items: center; position: relative; }
+        header .logo { font-size: 1.5rem; color: #fff; text-decoration: none; }
+        
+        /* Hamburger menu (Mobile) */
+        .hamburger-menu { display: block; background: none; border: none; cursor: pointer; padding: 0; z-index: 1000; }
+        .hamburger-menu span { display: block; width: 25px; height: 3px; background-color: #fff; margin: 5px 0; transition: all 0.3s ease-in-out; }
+        
+        /* Nav Mobile */
+        header nav { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: #333; padding: 1rem 0; z-index: 999; }
+        header.nav-open nav { display: block; }
+        header nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        header nav ul li { margin: 10px 0; }
+        header nav ul li a { color: #fff; text-decoration: none; }
+        
+        /* Hamburger to X animation */
+        header.nav-open .hamburger-menu span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        header.nav-open .hamburger-menu span:nth-child(2) { opacity: 0; }
+        header.nav-open .hamburger-menu span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* Nav Desktop */
+        @media (min-width: 769px) {
+            .hamburger-menu { display: none; }
+            header nav { display: block; position: static; background: transparent; padding: 0; width: auto; }
+            header nav ul { flex-direction: row; align-items: center; }
+            header nav ul li { margin: 0 0 0 20px; }
+        }
+
+        /* Hero */
+        .hero { background-image: url('images/hero-image.jpg'); background-size: cover; background-position: center; color: #fff; text-align: center; padding: 4rem 0; }
+        .hero h2 { margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+        .btn { display: inline-block; padding: 10px 20px; background: #333; color: #fff; text-decoration: none; border-radius: 5px; border: none; cursor: pointer; transition: transform 0.2s ease, background-color 0.2s ease; }
+        .btn:hover { background-color: #555; transform: translateY(-2px); }
+        .btn:active { transform: translateY(0); }
+    </style>
+    <!-- Preload and deferred loading for non-critical CSS -->
+    <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/style.css"></noscript>
 
 </head>
 <body>
